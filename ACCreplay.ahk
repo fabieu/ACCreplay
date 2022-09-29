@@ -56,15 +56,17 @@ If RaceLength not between 1 and 24
 WinWaitActive, %ApplicationACC%
 
 ; Send hotkey in an interval based on race length and replay length
-Iterations := RaceLength + 1
-Loop %Iterations% {
-  if (A_Index != 1) {
-    if WinActive(ApplicationACC) {
-      OutputDebug, Saving replay (Index: %A_Index%)
-      Send {%ReplayHotkey%}
-    } else {
-      MsgBox, 0, %ApplicationName% - Error, Replay could not be saved because ACC is not the active window, 3
-    }
+Iterations := Ceil((RaceLength) * 60 / ReplayLength) + 1
+While (A_Index <= Iterations) {
+  if (A_Index = 1) {
+    Continue
+  }
+
+  if WinActive(ApplicationACC) {
+    OutputDebug, Saving replay (Index: %A_Index%)
+    Send {%ReplayHotkey%}
+  } else {
+    MsgBox, 0, %ApplicationName% - Error, Replay could not be saved because ACC is not the active window, 3
   }
   Sleep, ReplayLength * 60000
 }
