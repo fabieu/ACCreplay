@@ -12,6 +12,7 @@ OnExit("ExitFunc")
 
 ;====== Global variables =====
 ApplicationName := "ACCreplay"
+ApplicationACC := "AC2"
 
 ;===== Configuration variables =====
 inifile = %ApplicationName%.ini
@@ -30,7 +31,7 @@ Replay length: %ReplayLength% minutes
 Replay hotkey: %ReplayHotkey%
 Termination hotkey: %TerminationHotkey%
 
-You can edit these configurations in %A_WorkingDir%\%inifile%
+You can edit these settings in %A_WorkingDir%\%inifile%
 )
 MsgBox, 0, %ApplicationName% - Settings, %ConfigMessage%
 
@@ -52,14 +53,20 @@ If RaceLength not between 1 and 24
   Exit
 }
 
+WinWaitActive, %ApplicationACC%
+
 ; Send hotkey in an interval based on race length and replay length
 Iterations := RaceLength + 1
 Loop %Iterations% {
   if (A_Index != 1) {
-    OutputDebug, Saving replay (Index: %A_Index%)
-    Send {%ReplayHotkey%}
+    if WinActive(ApplicationACC) {
+      OutputDebug, Saving replay (Index: %A_Index%)
+      Send {%ReplayHotkey%}
+    } else {
+      MsgBox, 0, %ApplicationName% - Error, Replay could not be saved because ACC is not the active window, 3
+    }
   }
-  Sleep, (ReplayLength - 1) * 60000 ; Save replay one minute early to prevent data loss
+  Sleep, ReplayLength * 60000
 }
 Exit
 
