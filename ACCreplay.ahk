@@ -16,7 +16,7 @@ ApplicationACC := "AC2"
 
 ;===== Configuration variables =====
 inifile = %ApplicationName%.ini
-IniRead, ReplayLength, %inifile%, Default, ReplayLength, 60 ; replay length in minutes
+IniRead, ReplayLength, %inifile%, Default, ReplayLength, 60 ; auto replay length in minutes
 IniRead, ReplayHotkey, %inifile%, Default, ReplayHotkey, m ; hotkey for saving replays
 IniRead, TerminationHotkey, %inifile%, Default, TerminationHotkey, +t ; hotkey for terminating the script (shift + t)
 
@@ -36,7 +36,7 @@ You can edit these settings in %A_WorkingDir%\%inifile%
 MsgBox, 0, %ApplicationName% - Settings, %ConfigMessage%
 
 ; Ask for current race length, used for number of save replay iterations
-InputBox, RaceLength, %ApplicationName% - Setup, Enter the race length (in hours).
+InputBox, RaceLength, %ApplicationName% - Setup, Enter the race length (in minutes).
 if ErrorLevel
   Exit
 
@@ -47,16 +47,16 @@ if RaceLength is not integer
   Exit
 }
 
-If RaceLength not between 1 and 24 
+If RaceLength <= ReplayLength
 {
-  MsgBox, 0, %ApplicationName%, %RaceLength% is not a valid race length. Exiting programm!
+  MsgBox, 0, %ApplicationName%, %RaceLength% minutes is shorter than the auto replay length. No additional replay saves required. Exiting programm!
   Exit
 }
 
 WinWaitActive, %ApplicationACC%
 
 ; Send hotkey in an interval based on race length and replay length
-Iterations := Ceil((RaceLength) * 60 / ReplayLength) + 1
+Iterations := Ceil(RaceLength / ReplayLength) + 1
 While (A_Index <= Iterations) {
   if (A_Index = 1) {
     Continue
@@ -68,7 +68,7 @@ While (A_Index <= Iterations) {
   } else {
     MsgBox, 0, %ApplicationName% - Error, Replay could not be saved because ACC is not the active window, 3
   }
-  Sleep, ReplayLength * 60000
+  Sleep, ReplayLength * 60000 ; 60000ms = 60s
 }
 Exit
 
