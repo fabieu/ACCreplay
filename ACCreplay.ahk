@@ -12,6 +12,7 @@ OnExit("ExitFunc")
 
 ;====== Global variables =====
 ApplicationName := "ACCreplay"
+ApplicationVersion := "0.1.0"
 ApplicationACC := "AC2"
 
 ;===== Configuration variables =====
@@ -27,6 +28,8 @@ Hotkey, %TerminationHotkey%, TerminateScript
 ; Show current configuration options
 ConfigMessage = 
 (
+Welcome to %ApplicationName% v%ApplicationVersion%
+
 Replay length: %ReplayLength% minutes
 Replay hotkey: %ReplayHotkey%
 Termination hotkey: %TerminationHotkey%
