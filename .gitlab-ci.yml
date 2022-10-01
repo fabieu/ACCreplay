@@ -31,8 +31,6 @@ release:
   tags:
     - gitlab-org-docker
   image: registry.gitlab.com/gitlab-org/release-cli:latest
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
     - echo "running release_job"
   release: # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
