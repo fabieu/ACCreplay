@@ -39,7 +39,7 @@ You can edit these settings in %A_WorkingDir%\%inifile%
 MsgBox, 0, %ApplicationName% - Settings, %ConfigMessage%
 
 ; Ask for current race length, used for number of save replay iterations
-InputBox, RaceLength, %ApplicationName% - Setup, Enter the race length (in minutes).
+InputBox, RaceLength, %ApplicationName% - Setup, Enter the race length in minutes.
 if ErrorLevel
   Exit
 
