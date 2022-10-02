@@ -3,6 +3,11 @@ stages:
   - upload
   - release
 
+variables:
+  PACKAGE_VERSION: ${CI_COMMIT_TAG}
+  ACCREPLAY_EXE: "ACCreplay-${PACKAGE_VERSION}.exe"
+  PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${CI_PROJECT_NAME}/${PACKAGE_VERSION}"
+
 workflow:
   rules:
     - if: $CI_COMMIT_TAG =~ /^(\d+\.)?(\d+\.)?(\*|\d+)$/
@@ -12,11 +17,10 @@ build:
   tags:
     - windows
   script:
-    - ./build/compiler/ahk2exe.exe /in "ACCreplay.ahk" /out "./build/ACCreplay.exe" /icon "./build/icon/icon.ico" /base "./build/compiler/Unicode 32-bit.bin"
+    - ./build/compiler/ahk2exe.exe /in "ACCreplay.ahk" /out "bin/${ACCREPLAY_EXE}" /icon "./build/icon/icon.ico" /base "./build/compiler/Unicode 32-bit.bin"
   artifacts:
     paths:
-      - ./build/ACCreplay.exe
-    expire_in: 1 day
+      - bin/
 
 upload:
   stage: upload
@@ -24,7 +28,7 @@ upload:
     - gitlab-org-docker
   image: curlimages/curl:latest
   script:
-    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./build/ACCreplay.exe "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${CI_PROJECT_NAME}/${CI_COMMIT_TAG}/ACCreplay.exe"'
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file bin/${ACCREPLAY_EXE} ${PACKAGE_REGISTRY_URL}/${ACCREPLAY_EXE}'
 
 release:
   stage: release
@@ -35,9 +39,9 @@ release:
     - echo "running release_job"
   release: # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
     tag_name: "$CI_COMMIT_TAG"
-    name: "Release $CI_COMMIT_TAG"
-    description: "$CI_COMMIT_TAG"
+    name: "Release ${PACKAGE_VERSION}"
+    description: "${PACKAGE_VERSION}"
     assets:
       links:
-        - name: "ACCreplay.exe"
-          url: "https://example.com"
+        - name: "${ACCREPLAY_EXE}"
+          url: "${PACKAGE_REGISTRY_URL}/${ACCREPLAY_EXE}"
