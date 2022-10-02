@@ -17,10 +17,10 @@ build:
   tags:
     - windows
   script:
-    - ./build/compiler/ahk2exe.exe /in "ACCreplay.ahk" /out "bin/${ACCREPLAY_EXE}" /icon "./build/icon/icon.ico" /base "./build/compiler/Unicode 32-bit.bin"
+    - ./build/compiler/ahk2exe.exe /in "ACCreplay.ahk" /out "./build/${ACCREPLAY_EXE}" /icon "./build/icon/icon.ico" /base "./build/compiler/Unicode 32-bit.bin"
   artifacts:
     paths:
-      - bin/
+      - ./build/${ACCREPLAY_EXE}
 
 upload:
   stage: upload
@@ -28,7 +28,7 @@ upload:
     - gitlab-org-docker
   image: curlimages/curl:latest
   script:
-    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file bin/${ACCREPLAY_EXE} ${PACKAGE_REGISTRY_URL}/${ACCREPLAY_EXE}'
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./build/${ACCREPLAY_EXE} ${PACKAGE_REGISTRY_URL}/${ACCREPLAY_EXE}'
 
 release:
   stage: release
