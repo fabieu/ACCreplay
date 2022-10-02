@@ -19,7 +19,7 @@ ApplicationACC := "AC2"
 inifile = %ApplicationName%.ini
 IniRead, ReplayLength, %inifile%, Default, ReplayLength, 60 ; auto replay length in minutes
 IniRead, ReplayHotkey, %inifile%, Default, ReplayHotkey, m ; hotkey for saving replays
-IniRead, TerminationHotkey, %inifile%, Default, TerminationHotkey, +t ; hotkey for terminating the script (shift + t)
+IniRead, TerminationHotkey, %inifile%, Default, TerminationHotkey, +x ; hotkey for terminating the script (shift + x)
 
 ;===== Script =====
 ; Add hotkey for terminating the script
@@ -50,7 +50,7 @@ if RaceLength is not integer
   Exit
 }
 
-If RaceLength <= ReplayLength
+If (RaceLength <= ReplayLength)
 {
   MsgBox, 0, %ApplicationName%, %RaceLength% minutes is shorter than the auto replay length. No additional replay saves required. Exiting programm!
   Exit
