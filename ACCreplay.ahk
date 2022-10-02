@@ -12,7 +12,7 @@ OnExit("ExitFunc")
 
 ;====== Global variables =====
 ApplicationName := "ACCreplay"
-ApplicationVersion := "0.1.0"
+ApplicationVersion := "1.0.0"
 ApplicationACC := "AC2"
 
 ;===== Configuration variables =====
