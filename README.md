@@ -1,19 +1,19 @@
-[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline-status/markracing/accreplay?branch=main&style=for-the-badge)](https://gitlab.com/markracing/accreplay/-/pipelines)
+[![GitLab Release (latest by SemVer)](https://img.shields.io/gitlab/v/release/markracing/accreplay?style=for-the-badge)](https://gitlab.com/markracing/accreplay/-/releases)
 [![GitLab issues](https://img.shields.io/gitlab/issues/open/markracing/accreplay?style=for-the-badge)](https://gitlab.com/markracing/accreplay/-/issues)
 [![GitLab merge requests](https://img.shields.io/gitlab/merge-requests/open-raw/markracing/accreplay?style=for-the-badge)](https://gitlab.com/markracing/accreplay/-/merge_requests)
 [![GitLab](https://img.shields.io/gitlab/license/markracing/accreplay?style=for-the-badge)](https://gitlab.com/markracing/accreplay/-/blob/main/LICENSE)
 
 # ACCreplay
 
-ACCreplay is a _small_ program written with [AutoHotkey](https://www.autohotkey.com/) for automatically saving ACC replays during endurance races where drivers can not or forget to manually save the replay.
+ACCreplay is a lightweight program written with [AutoHotkey](https://www.autohotkey.com/) for automatically saving ACC replays during endurance races where drivers can not or forget to manually save the replay.
 
 ACCreplay will press the hotkey for saving the replay for you. After your defined race length ACCreplay will close itself automatically.
 
-ACCreplay is highly configurable so that you can adjust it to your needs.
+ACCreplay is highly configurable, so you can easily adjust it to your needs.
 
 # Download
 
-Download the latest version here: https://gitlab.com/markracing/accreplay/-/packages/
+Download the latest version here: https://gitlab.com/markracing/accreplay/-/releases
 
 All packages are built and published with Gitlab CI, so that you can see whats inside. All source code used in these packages is publicly available.
 
@@ -41,13 +41,13 @@ Next enter the race length (**in minutes!**) and press `OK`.
 
 ![Setup](./docs/setup.jpg)
 
-The programm will check if your entered race length is valid and longer than your auto replay save interval.
+The program will check if your entered race length is valid and longer than your auto replay save interval.
 
 **Important!:** The initial timer for saving your replay will start when you first enter ACC.
 
 ---
 
-ACCreplay will be visible in the taskbar. You can also close the programm by right-clicking the icon and choose _Exit_
+ACCreplay will be visible in the taskbar. You can also close the program by right-clicking the icon and choose _Exit_
 
 ![Settings](./docs/taskbar.jpg)
 
@@ -56,6 +56,10 @@ You can also hit the defined termination hotkey (default: shift + x)
 A prompt will open to confirm your choice.
 
 ![Setup](./docs/exit.jpg)
+
+Press `Yes` to exit ACCreplay.
+
+Press `No` to abort the termination process.
 
 # Configuration
 
